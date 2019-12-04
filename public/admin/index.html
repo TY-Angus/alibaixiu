@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="utf-8">
   <title>Dashboard &laquo; Admin</title>
+  <!-- 需求2登录拦截 -->
+  <script src="/login/status"></script>
+  <script>
+    if (!isLogin) {
+      location.href = '/admin/login.html'
+    }
+  </script>
   <link rel="stylesheet" href="../assets/vendors/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="../assets/vendors/font-awesome/css/font-awesome.css">
   <link rel="stylesheet" href="../assets/vendors/nprogress/nprogress.css">
   <link rel="stylesheet" href="../assets/css/admin.css">
   <script src="../assets/vendors/nprogress/nprogress.js"></script>
 </head>
+
 <body>
   <script>NProgress.start()</script>
 
@@ -17,7 +26,7 @@
       <button class="btn btn-default navbar-btn fa fa-bars"></button>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="profile.html"><i class="fa fa-user"></i>个人中心</a></li>
-        <li><a href="login.html"><i class="fa fa-sign-out"></i>退出</a></li>
+        <li><a href="javascript:;" id="logout"><i class="fa fa-sign-out"></i>退出</a></li>
       </ul>
     </nav>
     <div class="container-fluid">
@@ -85,5 +94,21 @@
   <script src="../assets/vendors/jquery/jquery.js"></script>
   <script src="../assets/vendors/bootstrap/js/bootstrap.js"></script>
   <script>NProgress.done()</script>
+  <script>
+    // 需求3退出登录
+    $('#logout').on('click', function () {
+      let isConfirm = confirm('您确定要退出吗?')
+      if (isConfirm) {
+        $.ajax({
+          url: '/logout',
+          type: 'post',
+          success: function () {
+            location.href = '/admin/login.html'
+          }
+        })
+      }
+    })
+  </script>
 </body>
+
 </html>
