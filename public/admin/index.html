@@ -94,21 +94,7 @@
   <script src="../assets/vendors/jquery/jquery.js"></script>
   <script src="../assets/vendors/bootstrap/js/bootstrap.js"></script>
   <script>NProgress.done()</script>
-  <script>
-    // 需求3退出登录
-    $('#logout').on('click', function () {
-      let isConfirm = confirm('您确定要退出吗?')
-      if (isConfirm) {
-        $.ajax({
-          url: '/logout',
-          type: 'post',
-          success: function () {
-            location.href = '/admin/login.html'
-          }
-        })
-      }
-    })
-  </script>
+  <script src="../assets/js/common.js"></script>
 </body>
 
 </html>
