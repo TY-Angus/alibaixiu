@@ -31,3 +31,25 @@ $.ajax({
 	}
 })
 
+$('#avatar').on('change',function(){
+	let formData = new FormData()
+	// this.files[0]指第一张图片
+	formData.append('avatar',this.files[0])
+	$.ajax({
+		type:'post',
+		url:'/upload',
+		data:formData,
+		// 告诉$.ajax()方法不要解析请求参数
+		processData:false,
+		// 告诉$.ajax()方法不要设置参数的类型
+		contentType:false,
+		success:function(response){
+			// response[0].avatar返回的是图片的路径
+			$('#preview').attr('src', response[0].avatar)
+			$('#hiddenAvatar').val(response[0].avatar)
+		}
+		
+	})
+
+})
+

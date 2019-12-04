@@ -39,9 +39,10 @@
               <div class="form-group">
                 <label class="form-image">
                   <input id="avatar" type="file">
-                  <img src="../assets/img/default.png">
+                  <img src="../assets/img/default.png" id="preview">
                   <i class="mask fa fa-upload"></i>
                 </label>
+                <input type="hidden" name="avatar" id="hiddenAvatar">
               </div>
             </div>
             <div class="form-group">
@@ -149,7 +150,7 @@
     {{each data}}
     <tr>
         <td class="text-center"><input type="checkbox"></td>
-        <td class="text-center"><img class="avatar" src="../assets/img/default.png"></td>
+        <td class="text-center"><img class="avatar" src="{{$value.avatar}}"></td>
         <td>{{$value.email}}</td>
         <td>{{$value.nickName}}</td>
         <td>{{$value.status == 0 ?'未激活':'激活'}}</td>
