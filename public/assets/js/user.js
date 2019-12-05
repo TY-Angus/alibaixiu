@@ -83,8 +83,52 @@ $('#modifyBox').on('submit', '#modifyForm', function () {
 	return false
 })
 
+// 需求8添加删除用户功能
+$('#userBox').on('click', '.delete', function () {
+	let id = $(this).attr('data-id')
+	if (confirm('确认要删除吗?')) {
+		$.ajax({
+			url: '/users/' + id,
+			type: 'delete',
+			success: function () {
+				location.reload()
+			}
+		})
+	}
+})
+// 需求9单选和全选以及批量删除
+$('#selectAll').on('click', function () {
+	let isChecked = this.checked
+	if (isChecked) {
+		$('#deleteMany').show()
+	} else {
+		$('#deleteMany').hind()
+	}
+	$('#userBox').find('input:checkbox').attr('checked', isChecked)
+})
+$('#userBox').on('click', 'input:checkbox', function () {
+	let allCheck = $('#userBox input:checkbox')
+	let isChecked = allCheck.length == allCheck.filter(':checked').length
+	$('#selectAll').prop('checked', isChecked)
 
-
+	if (allCheck.filter(':checked').length >= 1) {
+		$('#deleteMany').show()
+	} else {
+		$('#deleteMany').hide()
+	}
+})
+$('#deleteMany').on('click', function () {
+	let arr = $('#userBox input:checkbox').filter(':checked').toArray().map(x => $(x).attr('data-id'))
+	if (confirm('您确认要进行批量删除吗?')) {
+		$.ajax({
+			type: 'delete',
+			url: '/users/' + arr.join('-'),
+			success: function () {
+				location.reload()
+			}
+		})
+	}
+})
 
 
 
