@@ -25,19 +25,37 @@ $('#feature').on('change', function () {
 })
 // 添加文章功能
 $('#addForm').on('submit', function () {
-	// 获取管理员在表单中输入的内容
-	var formData = $(this).serialize();
+    // 获取管理员在表单中输入的内容
+    var formData = $(this).serialize();
     // 向服务器端发送请求 实现添加文章功能
     console.log(formData)
-	$.ajax({
-		type: 'post',
-		url: '/posts',
-		data: formData,
-		success: function () {
-			// 文章添加成功 跳转到文章列表页面
-			location.href = '/admin/posts.html'
-		}
-	})
-	// 阻止表单默认提交的行为
-	return false;
+    $.ajax({
+        type: 'post',
+        url: '/posts',
+        data: formData,
+        success: function () {
+            // 文章添加成功 跳转到文章列表页面
+            location.href = '/admin/posts.html'
+        }
+    })
+    // 阻止表单默认提交的行为
+    return false;
 });
+
+
+// 取url 中的参数
+function getUrlParams(name) {
+    let query = location.search.substring(1).split('&')
+    if (query && query.length) {
+        for (let i = 0; i < query.length; i++) {
+            let temp = query[i].split('=')
+            if (name == temp[0]) {
+                return temp[1]
+            }else{
+                return -1
+            }
+        }
+    }
+}
+let id = getUrlParams('id')
+console.log(id)

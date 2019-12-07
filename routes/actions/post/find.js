@@ -1,7 +1,7 @@
 // 用户模块
 const { Post, validatePost } = require('../../../model/Post');
 // 分页
-const pagination  = require('mongoose-sex-page');
+const pagination = require('mongoose-sex-page');
 // 工具
 const _ = require('lodash');
 
@@ -13,11 +13,11 @@ module.exports = async (req, res) => {
 	// 查询条件
 	let condition = {};
 	// 分类条件
-	if (req.query.category != undefined) {
+	if (!!req.query.category) {
 		condition.category = req.query.category;
 	}
 	// 状态条件
-	if (req.query.state != undefined) {
+	if (!!req.query.state) {
 		condition.state = req.query.state;
 	}
 	// 查询用户信息

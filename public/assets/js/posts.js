@@ -1,3 +1,12 @@
+//封装一个转对象函数
+function serializeObj(form) {
+    let arr = form.serializeArray()
+    let obj = {}
+    $.each(arr, (i, item) => {
+        obj[item.name] = item.value
+    })
+    return obj
+}
 // 需求13文章列表渲染
 function render(data, page) {
     data.page = page || 1
@@ -8,6 +17,8 @@ function render(data, page) {
         success: function (response) {
             let html = template('postListTpl', response)
             $('#postListBox').html(html)
+            let page = template('pageTpl', response)
+            $('#pageBox').html(page)
         }
     })
 }
@@ -27,8 +38,15 @@ $.ajax({
         $('#categoryBox').html(html)
     }
 })
+var filterData = {}
 $('#filterForm').on('submit', function () {
-    let formData = $(this).serialize()
+    let formData = serializeObj($(this))
+    filterData = formData
     render(formData, 1)
     return false
 })
+
+// 需求15 分页功能
+function changePage(page) {
+    render(filterData, page)
+}
