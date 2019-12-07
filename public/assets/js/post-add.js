@@ -43,6 +43,7 @@ $('#addForm').on('submit', function () {
 });
 
 
+// 需求16文章修改功能
 // 取url 中的参数
 function getUrlParams(name) {
     let query = location.search.substring(1).split('&')
@@ -51,11 +52,43 @@ function getUrlParams(name) {
             let temp = query[i].split('=')
             if (name == temp[0]) {
                 return temp[1]
-            }else{
+            } else {
                 return -1
             }
         }
     }
 }
+// 获取浏览器后面的id 根据id来渲染编辑文章界面
 let id = getUrlParams('id')
-console.log(id)
+if (id != -1) {
+    $.ajax({
+        type: 'get',
+        url: '/posts/' + id,
+        success: function (response) {
+            console.log(response.createAt)
+            $.ajax({
+                url: '/categories',
+                type: 'get',
+                success: function (categories) {
+                    response.categories = categories;
+                    let html = template('modifyTpl', response)
+                    $('#modifyBox').html(html)
+                }
+            })
+        }
+    })
+}
+$('#modifyBox').on('submit', '#modifyForm', function () {
+    let formData = $(this).serialize()
+    let id = $(this).attr('data-id')
+    $.ajax({
+        type: 'put',
+        url: '/posts/' + id,
+        data: formData,
+        success: function () {
+            location.href = '/admin/posts.html'
+        }
+    })
+    return false
+})
+
