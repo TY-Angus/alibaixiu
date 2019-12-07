@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="utf-8">
   <title>Comments &laquo; Admin</title>
@@ -9,6 +10,7 @@
   <link rel="stylesheet" href="../assets/css/admin.css">
   <script src="../assets/vendors/nprogress/nprogress.js"></script>
 </head>
+
 <body>
   <script>NProgress.start()</script>
 
@@ -44,40 +46,8 @@
             <th class="text-center" width="100">操作</th>
           </tr>
         </thead>
-        <tbody>
-          <tr class="danger">
-            <td>大大</td>
-            <td>楼主好人，顶一个</td>
-            <td>《Hello world》</td>
-            <td>2026/10/07</td>
-            <td>未批准</td>
-            <td class="text-center">
-              <a href="post-add.html" class="btn btn-info btn-xs">批准</a>
-              <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-            </td>
-          </tr>
-          <tr>
-            <td>大大</td>
-            <td>楼主好人，顶一个</td>
-            <td>《Hello world》</td>
-            <td>2026/10/07</td>
-            <td>已批准</td>
-            <td class="text-center">
-              <a href="post-add.html" class="btn btn-warning btn-xs">驳回</a>
-              <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-            </td>
-          </tr>
-          <tr>
-            <td>大大</td>
-            <td>楼主好人，顶一个</td>
-            <td>《Hello world》</td>
-            <td>2026/10/07</td>
-            <td>已批准</td>
-            <td class="text-center">
-              <a href="post-add.html" class="btn btn-warning btn-xs">驳回</a>
-              <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-            </td>
-          </tr>
+        <tbody id="commentsBox">
+
         </tbody>
       </table>
     </div>
@@ -122,6 +92,24 @@
 
   <script src="../assets/vendors/jquery/jquery.js"></script>
   <script src="../assets/vendors/bootstrap/js/bootstrap.js"></script>
+  <script src="../assets/vendors/art-template/template-web.js"></script>
+  <script type="text/html" id="commentsTpl">
+    {{each records}}
+    <tr class="danger">
+            <td>{{$value.author.nickName}}</td>
+            <td>{{$value.content}}</td>
+            <td>{{$value.post.title}}</td>
+            <td>{{$value.cteateAt.split('T')[0]}}</td>
+            <td>{{$value == 0 ? '未批准':'已批准'}}</td>
+            <td class="text-center">
+              <a href="post-add.html" class="btn btn-info btn-xs edit" data-id="{{$value._id}}">批准</a>
+              <a href="javascript:;" class="btn btn-danger btn-xs delete" data-id="{{$value._id}}">删除</a>
+            </td>
+    </tr>
+    {{/each}}
+  </script>
+  <script src="../assets/js/comments.js"></script>
   <script>NProgress.done()</script>
 </body>
+
 </html>

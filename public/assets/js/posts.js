@@ -50,3 +50,17 @@ $('#filterForm').on('submit', function () {
 function changePage(page) {
     render(filterData, page)
 }
+
+// 需求17 文章删除功能
+$('#postListBox').on('click', '.delete', function () {
+    if (confirm('您确认要删除这篇文章吗?')) {
+        let id = $(this).data('id')
+        $.ajax({
+            type: 'delete',
+            url: '/posts/' + id,
+            sunccess: function () {
+                location.reload()
+            }
+        })
+    }
+})
