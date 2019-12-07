@@ -30,14 +30,14 @@
       <div class="page-action">
         <!-- show when multiple checked -->
         <a class="btn btn-danger btn-sm" href="javascript:;" style="display: none">批量删除</a>
-        <form class="form-inline">
-          <select name="" class="form-control input-sm">
-            <option value="">所有分类</option>
+        <form class="form-inline" id="filterForm">
+          <select name="category" class="form-control input-sm" id="categoryBox">
+            
           </select>
-          <select name="" class="form-control input-sm">
+          <select name="state" class="form-control input-sm">
             <option value="">所有状态</option>
-            <option value="">草稿</option>
-            <option value="">已发布</option>
+            <option value="0">草稿</option>
+            <option value="1">已发布</option>
           </select>
           <button class="btn btn-default btn-sm">筛选</button>
         </form>
@@ -109,6 +109,7 @@
   <script src="../assets/vendors/bootstrap/js/bootstrap.js"></script>
   <script src="../assets/vendors/art-template/template-web.js"></script>
 
+  <!-- 文章列表渲染模板 -->
   <script type="text/html" id="postListTpl">
     {{each records}}
     <tr>
@@ -116,12 +117,22 @@
       <td>{{$value.author.nickName}}</td>
       <td>{{$value.category.title}}</td>
       <td class="text-center">{{$imports.formateDate($value.createAt)}}</td>
-      <td class="text-center">{{$value.stata == 0 ? '草稿' : '已发布'}}</td>
+      <td class="text-center">{{$value.state == 0 ? '草稿' : '已发布'}}</td>
       <td class="text-center">
         <a href="javascript:;" class="btn btn-default btn-xs edit" data-id="{{$value._id}}">编辑</a>
         <a href="javascript:;" class="btn btn-danger btn-xs delete" data-id="{{$value._id}}">删除</a>
       </td>
     </tr>
+    {{/each}}
+  </script>
+  <!-- 文章分页渲染模板 -->
+  <script type="text/html" >
+  </script>
+  <!-- 文章筛选分类下拉列表渲染模板 -->
+  <script type="text/html" id="categoryTpl">
+    <option value="">所有分类</option>
+    {{each data}}
+    <option value="{{$value._id}}">{{$value.title}}</option>
     {{/each}}
   </script>
   <script src="../assets/js/posts.js"></script>
