@@ -6,12 +6,13 @@
   <title>阿里百秀-发现生活，发现美!</title>
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/vendors/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="assets/vendors/nprogress/nprogress.css">
 </head>
 <body>
   <div class="wrapper">
     <div class="topnav">
-      <ul  id="topNavBox">
-       
+      <ul id="topNavBox">
+        
       </ul>
     </div>
     <div class="header">
@@ -39,7 +40,7 @@
       <div class="widgets">
         <h4>随机推荐</h4>
         <ul class="body random" id="randomBox">
-          
+         
         </ul>
       </div>
       <div class="widgets">
@@ -51,7 +52,7 @@
     </div>
     <div class="content">
       <div class="panel new">
-        <h3>会生活</h3>
+        <h3 id="categoryTitle">搜索结果</h3>
         <div id="listBox"></div>
       </div>
     </div>
@@ -59,10 +60,11 @@
       <p>© 2016 XIU主题演示 本站主题由 themebetter 提供</p>
     </div>
   </div>
-  <script src="assets/vendors/jquery/jquery.min.js"></script>
+  <script src="assets/vendors/jquery/jquery.js"></script>
+  <script src="assets/vendors/nprogress/nprogress.js"></script>
   <script src="assets/vendors/art-template/template-web.js"></script>
-  <!-- 文章列表模板 -->
-  <script type="text/html" id="listTpl">
+  <!-- 搜索结果模板 -->
+  <script type="text/html" id="searchTpl">
     {{each data}}
     <div class="entry">
       <div class="head">
@@ -89,8 +91,7 @@
     </div>
     {{/each}}
   </script>
-  
   <script src="assets/js/public.js"></script>
-  <script src="assets/js/list.js"></script>
+  <script src="assets/js/search.js"></script>
 </body>
 </html>
