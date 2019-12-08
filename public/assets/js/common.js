@@ -14,3 +14,12 @@ $('#logout').on('click', function () {
     })
   }
 })
+// 需求24 侧边栏用户信息
+$.ajax({
+	type: 'get',
+	url: '/users/' + userId,
+	success: function (response) {
+		$('.avatar').prop('src', response.avatar)
+		$('.name').html(response.nickName)
+	}
+})
